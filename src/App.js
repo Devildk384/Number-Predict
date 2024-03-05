@@ -86,10 +86,14 @@ const DrawingCanvas = () => {
       clearCanvas();
       setHasIntroText(false);
     }
-    const x = event.touches[0].clientX / CANVAS_SCALE;
-    const y = event.touches[0].clientY / CANVAS_SCALE;
-    setLastX(x);
-    setLastY(y);
+    const rect = event.target.getBoundingClientRect();
+    const x = (event.touches[0].clientX - rect.left) / CANVAS_SCALE;
+    const y = (event.touches[0].clientY - rect.top) / CANVAS_SCALE;
+    // const x = event.touches[0].clientX / CANVAS_SCALE;
+    // const y = event.touches[0].clientY / CANVAS_SCALE;
+    
+    setLastX(x + 0.001);
+    setLastY(y + 0.001);
     setIsDrawing(true);
     // handleCanvasMouseMove(event);
   };
@@ -115,8 +119,9 @@ const DrawingCanvas = () => {
   const handleTouchMove = (event) => {
     event.preventDefault();
     if (!isDrawing) return;
-    const x = event.touches[0].clientX / CANVAS_SCALE;
-    const y = event.touches[0].clientX / CANVAS_SCALE;
+    const rect = event.target.getBoundingClientRect();
+    const x = (event.touches[0].clientX - rect.left) / CANVAS_SCALE;
+    const y = (event.touches[0].clientY - rect.top) / CANVAS_SCALE;
     if (isMouseDown) {
       drawLine(lastX, lastY, x, y);
     }
