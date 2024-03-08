@@ -213,6 +213,11 @@ const DrawingCanvas = () => {
     }
   };
 
+   if (typeof window !== "undefined" && window.location && window.location) {
+                const currentUrl = window.location;
+                console.log(currentUrl, "jjhhjhhj");
+            }
+
   return (
     <div>
    
